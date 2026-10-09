@@ -10,51 +10,25 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  int _bottomNavIndex = 3; // Settings active
-  bool _isDarkMode = false;
   String _selectedLanguage = 'English (US)';
-  String _selectedUnit = 'Metric (kg, mm)';
 
-  // Unit options
-  final List<String> _unitOptions = [
-    'Metric (kg, mm)',
-    'Imperial (lb, in)',
-    'Metric (ton, m)',
-  ];
-
-  // Language options
-  final List<String> _languageOptions = [
-    'English (US)',
-    'English (UK)',
-    'Spanish',
-    'French',
-    'German',
-    'Hindi',
-    'Chinese',
-  ];
+  final List<String> _languageOptions = ['English (US)', 'Arabic'];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFAF8FF),
+      backgroundColor: const Color(0xFFF5F6FA),
       appBar: AppBar(
-        backgroundColor: const Color(0xFFFAF8FF),
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF004AC6)),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        backgroundColor: const Color(0xFF2C3E50),
+        elevation: 2,
         title: const Text(
           'Settings',
           style: TextStyle(
-            color: Color(0xFF004AC6),  
+            color: Colors.white,
             fontWeight: FontWeight.bold,
-            fontSize: 22,
+            fontSize: 18,
           ),
         ),
-       
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
@@ -69,32 +43,32 @@ class _SettingsState extends State<Settings> {
             const SizedBox(height: 8),
             _buildGroupedCard([
               // Dark Mode Switch Row
-              _buildSettingRow(
-                icon: Icons.dark_mode_outlined,
-                title: 'Dark Mode',
-                subtitle: 'Toggle light or dark interface',
-                trailing: Switch(
-                  value: _isDarkMode,
-                  activeColor: const Color(0xFF004AC6),
-                  onChanged: (val) {
-                    setState(() {
-                      _isDarkMode = val;
-                    });
-                    _showSnackBar('Dark mode ${val ? 'enabled' : 'disabled'}');
-                  },
-                ),
-                showDivider: true,
-                onTap: () {
-                  setState(() {
-                    _isDarkMode = !_isDarkMode;
-                  });
-                  _showSnackBar(
-                    'Dark mode ${_isDarkMode ? 'enabled' : 'disabled'}',
-                  );
-                },
-              ),
+              // _buildSettingRow(
+              //   icon: Icons.dark_mode_outlined,
+              //   title: 'Dark Mode',
+              //   subtitle: 'Toggle light or dark interface',
+              //   trailing: Switch(
+              //     value: _isDarkMode,
+              //     activeThumbColor: const Color(0xFF004AC6),
+              //     onChanged: (val) {
+              //       setState(() {
+              //         _isDarkMode = val;
+              //       });
+              //       _showSnackBar('Dark mode ${val ? 'enabled' : 'disabled'}');
+              //     },
+              //   ),
+              //   showDivider: true,
+              //   onTap: () {
+              //     setState(() {
+              //       _isDarkMode = !_isDarkMode;
+              //     });
+              //     _showSnackBar(
+              //       'Dark mode ${_isDarkMode ? 'enabled' : 'disabled'}',
+              //     );
+              //   },
+              // ),
               // Default Units
-             
+
               // Language
               _buildSettingRow(
                 icon: Icons.language,
@@ -137,7 +111,7 @@ class _SettingsState extends State<Settings> {
                 ),
                 showDivider: true,
                 onTap: () {
-                  _launchURL('https://your-privacy-policy-url.com');
+                  // _launchURL('https://your-privacy-policy-url.com');
                 },
               ),
               _buildSettingRow(
@@ -168,11 +142,11 @@ class _SettingsState extends State<Settings> {
             const SizedBox(height: 28),
 
             // Version Footer
-            Center(
+            const Center(
               child: Column(
-                children: const [
+                children: [
                   Text(
-                    'MetalCalc Pro v2.4.0 (Build 892)',
+                    'Milen traders (Build 892)',
                     style: TextStyle(
                       color: Color(0xFF737686),
                       fontSize: 12,
@@ -181,7 +155,7 @@ class _SettingsState extends State<Settings> {
                   ),
                   SizedBox(height: 4),
                   Text(
-                    '© 2024 Industrial Dynamics Ltd.',
+                    '© 2026 Industrial Dynamics Ltd.',
                     style: TextStyle(
                       color: Color(0xFF737686),
                       fontSize: 12,
@@ -195,33 +169,8 @@ class _SettingsState extends State<Settings> {
           ],
         ),
       ),
-
-      // Bottom Navigation Bar
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: const Color(0xFFEDEDF9),
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 20,
-              offset: const Offset(0, -4),
-            ),
-          ],
-        ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16.0,
-              vertical: 8.0,
-            ),
-            child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround),
-          ),
-        ),
-      ),
     );
   }
-
 
   // --- Build Section Header ---
   Widget _buildSectionHeader(String title) {
@@ -245,7 +194,8 @@ class _SettingsState extends State<Settings> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFC3C6D7).withOpacity(0.5)),
+        border:
+            Border.all(color: const Color(0xFFC3C6D7).withValues(alpha: 0.5)),
       ),
       child: Column(children: children),
     );
@@ -275,7 +225,7 @@ class _SettingsState extends State<Settings> {
                     width: 40,
                     height: 40,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF2563EB).withOpacity(0.1),
+                      color: const Color(0xFF2563EB).withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(icon, color: const Color(0xFF004AC6), size: 20),
@@ -315,10 +265,10 @@ class _SettingsState extends State<Settings> {
               ),
             ),
             if (showDivider)
-              Divider(
+              const Divider(
                 height: 1,
                 thickness: 0.5,
-                color: const Color(0xFFE1E2ED),
+                color: Color(0xFFE1E2ED),
               ),
           ],
         ),
@@ -326,41 +276,6 @@ class _SettingsState extends State<Settings> {
     );
   }
 
-  // --- Show Unit Selection Dialog ---
-  void _showUnitSelectionDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Select Default Units'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: _unitOptions.map((unit) {
-            return RadioListTile<String>(
-              title: Text(unit),
-              value: unit,
-              groupValue: _selectedUnit,
-              onChanged: (value) {
-                setState(() {
-                  _selectedUnit = value!;
-                });
-                Navigator.pop(context);
-                _showSnackBar('Units updated to $_selectedUnit');
-              },
-              activeColor: const Color(0xFF004AC6),
-            );
-          }).toList(),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // --- Show Language Selection Dialog ---
   void _showLanguageSelectionDialog() {
     showDialog(
       context: context,
@@ -369,18 +284,19 @@ class _SettingsState extends State<Settings> {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: _languageOptions.map((language) {
-            return RadioListTile<String>(
+            final isSelected = language == _selectedLanguage;
+            return ListTile(
               title: Text(language),
-              value: language,
-              groupValue: _selectedLanguage,
-              onChanged: (value) {
+              trailing: isSelected
+                  ? const Icon(Icons.check_circle, color: Color(0xFF2C3E50))
+                  : const Icon(Icons.circle_outlined, color: Colors.grey),
+              onTap: () {
                 setState(() {
-                  _selectedLanguage = value!;
+                  _selectedLanguage = language;
                 });
                 Navigator.pop(context);
                 _showSnackBar('Language updated to $_selectedLanguage');
               },
-              activeColor: const Color(0xFF004AC6),
             );
           }).toList(),
         ),
@@ -388,105 +304,6 @@ class _SettingsState extends State<Settings> {
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: const Text('Cancel'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // --- Show Edit Profile Dialog ---
-  void _showEditProfileDialog() {
-    final TextEditingController nameController = TextEditingController(
-      text: 'Alex Thompson',
-    );
-    final TextEditingController titleController = TextEditingController(
-      text: 'Lead Project Manager',
-    );
-
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Edit Profile'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: nameController,
-              decoration: const InputDecoration(
-                labelText: 'Name',
-                border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.person),
-              ),
-            ),
-            const SizedBox(height: 12),
-            TextField(
-              controller: titleController,
-              decoration: const InputDecoration(
-                labelText: 'Title',
-                border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.work),
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-              _showSnackBar('Profile updated successfully!');
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF004AC6),
-            ),
-            child: const Text('Save'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // --- Show Profile Dialog ---
-  void _showProfileDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Profile'),
-        content: const Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CircleAvatar(
-              radius: 40,
-              backgroundColor: Color(0xFF004AC6),
-              child: Icon(Icons.person, size: 40, color: Colors.white),
-            ),
-            SizedBox(height: 12),
-            Text(
-              'Alex Thompson',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 4),
-            Text(
-              'Lead Project Manager',
-              style: TextStyle(color: Color(0xFF434655)),
-            ),
-            SizedBox(height: 8),
-            Text(
-              'Pro Account Active',
-              style: TextStyle(
-                color: Color(0xFF004AC6),
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Close'),
           ),
         ],
       ),

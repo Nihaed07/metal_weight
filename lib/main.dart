@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:metal_weight/bottomnav.dart';
 import 'package:metal_weight/splashscreen.dart';
 
 void main() {
@@ -11,10 +10,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'MetalCalc Pro',
-      home: SplashScreen(),
+      theme: ThemeData(
+        primaryColor: const Color(0xFF2C3E50),
+        scaffoldBackgroundColor: const Color(0xFFF5F6FA),
+        colorScheme: const ColorScheme.light(
+          primary: Color(0xFF2C3E50),
+          secondary: Color(0xFFE67E22),
+          surface: Colors.white,
+        ),
+      ),
+      home: const SplashScreen(),
     );
   }
 }

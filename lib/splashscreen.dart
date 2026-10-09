@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:metal_weight/bottomnav.dart';
 
@@ -13,6 +15,7 @@ class _SplashScreenState extends State<SplashScreen>
   late AnimationController _fadeController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
+  Timer? _navigationTimer;
 
   @override
   void initState() {
@@ -35,17 +38,18 @@ class _SplashScreenState extends State<SplashScreen>
 
     _fadeController.forward();
 
-    Future.delayed(const Duration(seconds: 3), () {
+    _navigationTimer = Timer(const Duration(seconds: 3), () {
       if (mounted) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const Bottomnav()),
-        );
+        ); 
       }
     });
   }
 
   @override
   void dispose() {
+    _navigationTimer?.cancel();
     _fadeController.dispose();
     super.dispose();
   }
@@ -101,13 +105,13 @@ class _SplashScreenState extends State<SplashScreen>
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 48.0),
+            const Padding(
+              padding: EdgeInsets.only(bottom: 48.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const StaggeredPulseLoadingDots(color: primaryBlue),
-                  const SizedBox(height: 24),
+                  StaggeredPulseLoadingDots(color: primaryBlue),
+                  SizedBox(height: 24),
                 ],
               ),
             ),
@@ -126,7 +130,7 @@ class _SplashScreenState extends State<SplashScreen>
         color: Colors.grey[200],
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
